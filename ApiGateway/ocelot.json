@@ -1,0 +1,308 @@
+{
+    "Routes": [
+        {
+            // Authentication Web API
+            "UpstreamPathTemplate": "/api/Account",
+            "UpstreamHttpMethod": [ "POST" ],
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "authentication-api",
+                    "Port": 80
+                }
+            ],
+            "DownstreamPathTemplate": "/api/Account"
+        },
+        {
+            // User Web API
+            "UpstreamPathTemplate": "/api/User",
+            "UpstreamHttpMethod": [ "GET", "POST" ],
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "user-api",
+                    "Port": 80
+                }
+            ],
+            "DownstreamPathTemplate": "/api/User"
+        },
+        {
+            "UpstreamPathTemplate": "/api/User/{id}",
+            "UpstreamHttpMethod": [ "GET", "PUT", "DELETE" ],
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "user-api",
+                    "Port": 80
+                }
+            ],
+            "DownstreamPathTemplate": "/api/User/{id}"
+        },
+        {
+            "UpstreamPathTemplate": "/api/User/Register",
+            "UpstreamHttpMethod": [ "POST" ],
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "user-api",
+                    "Port": 80
+                }
+            ],
+            "DownstreamPathTemplate": "/api/User/Register"
+        },
+        {
+            "UpstreamPathTemplate": "/api/User/Login",
+            "UpstreamHttpMethod": [ "POST" ],
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "user-api",
+                    "Port": 80
+                }
+            ],
+            "DownstreamPathTemplate": "/api/User/Login"
+        },
+
+        // Product Web API
+        {
+            "UpstreamPathTemplate": "/api/Product",
+            "UpstreamHttpMethod": [ "GET", "POST" ],
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "product-api",
+                    "Port": 80
+                }
+            ],
+            "DownstreamPathTemplate": "/api/Product",
+            "AuthenticationOptions": {
+                "AuthenticationProviderKey": "Bearer",
+                "AllowedScopes": []
+            }
+        },
+        {
+            "UpstreamPathTemplate": "/api/Product/{id}",
+            "UpstreamHttpMethod": [ "GET", "PUT", "DELETE" ],
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "product-api",
+                    "Port": 80
+                }
+            ],
+            "DownstreamPathTemplate": "/api/Product/{id}"
+        },
+        {
+            "UpstreamPathTemplate": "/api/Category",
+            "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "product-api",
+                    "Port": 80
+                }
+            ],
+            "DownstreamPathTemplate": "/api/Category"
+        },
+        {
+            "UpstreamPathTemplate": "/api/Category/{id}",
+            "UpstreamHttpMethod": [ "GET", "PUT", "DELETE" ],
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "product-api",
+                    "Port": 80
+                }
+            ],
+            "DownstreamPathTemplate": "/api/Category/{id}"
+        },
+        {
+            "UpstreamPathTemplate": "/api/Attribute",
+            "UpstreamHttpMethod": [ "POST" ],
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "product-api",
+                    "Port": 80
+                }
+            ],
+            "DownstreamPathTemplate": "/api/Attribute"
+        },
+        {
+            "UpstreamPathTemplate": "/api/Attribute/{productId}",
+            "UpstreamHttpMethod": [ "GET" ],
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "product-api",
+                    "Port": 80
+                }
+            ],
+            "DownstreamPathTemplate": "/api/Attribute/{productId}"
+        },
+        {
+            "UpstreamPathTemplate": "/api/Attribute/{attrId}",
+            "UpstreamHttpMethod": [ "DELETE" ],
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "product-api",
+                    "Port": 80
+                }
+            ],
+            "DownstreamPathTemplate": "/api/Attribute/{attrId}"
+        },
+        {
+            "UpstreamPathTemplate": "/api/ProductAvailability",
+            "UpstreamHttpMethod": [ "POST" ],
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "product-api",
+                    "Port": 80
+                }
+            ],
+            "DownstreamPathTemplate": "/api/ProductAvailability"
+        },
+        {
+            "UpstreamPathTemplate": "/api/ProductAvailability/{id}",
+            "UpstreamHttpMethod": [ "PUT", "DELETE" ],
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "product-api",
+                    "Port": 80
+                }
+            ],
+            "DownstreamPathTemplate": "/api/ProductAvailability/{id}"
+        },
+        {
+            "UpstreamPathTemplate": "/api/ProductAvailability/product/{productId}",
+            "UpstreamHttpMethod": [ "GET" ],
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "product-api",
+                    "Port": 80
+                }
+            ],
+            "DownstreamPathTemplate": "/api/ProductAvailability/product/{productId}"
+        },
+        {
+            "UpstreamPathTemplate": "/api/ProductAvailability/product/{productId}/date/{date}",
+            "UpstreamHttpMethod": [ "GET" ],
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "product-api",
+                    "Port": 80
+                }
+            ],
+            "DownstreamPathTemplate": "/api/ProductAvailability/product/{productId}/date/{date}"
+        },
+        {
+            "UpstreamPathTemplate": "/api/ProductImage/upload",
+            "UpstreamHttpMethod": [ "POST" ],
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "product-api",
+                    "Port": 80
+                }
+            ],
+            "DownstreamPathTemplate": "/api/ProductImage/upload"
+        },
+        {
+            "UpstreamPathTemplate": "/api/U_Product",
+            "UpstreamHttpMethod": [ "GET", "POST" ],
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "product-api",
+                    "Port": 80
+                }
+            ],
+            "DownstreamPathTemplate": "/api/U_Product",
+            "AuthenticationOptions": {
+                "AuthenticationProviderKey": "Bearer",
+                "AllowedScopes": []
+            }
+        },
+        {
+            "UpstreamPathTemplate": "/api/U_Product/{productId}",
+            "UpstreamHttpMethod": [ "GET", "DELETE", "PUT" ],
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "product-api",
+                    "Port": 80
+                }
+            ],
+            "DownstreamPathTemplate": "/api/U_Product/{productId}",
+            "AuthenticationOptions": {
+                "AuthenticationProviderKey": "Bearer",
+                "AllowedScopes": []
+            }
+        },
+        {
+            "UpstreamPathTemplate": "/api/U_Product/sync/bokun",
+            "UpstreamHttpMethod": [ "POST" ],
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "product-api",
+                    "Port": 80
+                }
+            ],
+            "DownstreamPathTemplate": "/api/U_Product/sync/bokun",
+            "AuthenticationOptions": {
+                "AuthenticationProviderKey": "Bearer",
+                "AllowedScopes": []
+            }
+        },
+        // Bokun Adapter Web API
+        {
+            "UpstreamPathTemplate": "/api/Bokun",
+            "UpstreamHttpMethod": [ "GET"],
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "bokun-adapter",
+                    "Port": 80
+                }
+            ],
+            "DownstreamPathTemplate": "/api/Bokun",
+            "AuthenticationOptions": {
+                "AuthenticationProviderKey": "Bearer",
+                "AllowedScopes": []
+            }
+        }
+    ],
+
+    "GlobalConfiguration": {
+        "BaseUrl": "http://localhost:8001"
+    },
+
+    "SwaggerEndPoints": [
+        {
+            "Key": "user",
+            "Config": [
+                {
+                    "Name": "User API",
+                    "Version": "v1",
+                    "Url": "http://user-api/swagger/v1/swagger.json"
+                }
+            ]
+        },
+        {
+            "Key": "product",
+            "Config": [
+                {
+                    "Name": "Product API",
+                    "Version": "v1",
+                    "Url": "http://product-api/swagger/v1/swagger.json"
+                }
+            ]
+        }
+    ]
+}

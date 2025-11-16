@@ -1,0 +1,139 @@
+version: "3.9"
+
+networks:
+  backend:
+
+volumes:
+  productdb_data:
+  userdb_data:
+
+services:
+
+  # -----------------------
+  # Product Database
+  # -----------------------
+  productdb:
+    container_name: product-db
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=P@ssw0r1218
+      - MSSQL_PID=Express
+    ports:
+      - "1433:1433"
+    networks:
+      - backend
+    volumes:
+      - productdb_data:/var/opt/mssql
+
+  # -----------------------
+  # Product Web API
+  # -----------------------
+  productwebapi:
+    container_name: product-api
+    build:
+      context: .
+      dockerfile: ProductWebAPI/Dockerfile
+    environment:
+      - DB_HOST=productdb
+      - DB_NAME=dms_product
+      - DB_SA_PASSWORD=P@ssw0r1218
+      - ASPNETCORE_URLS=http://+:80
+      - ASPNETCORE_ENVIRONMENT=Development
+    depends_on:
+      - productdb
+    ports:
+      - "5001:80"
+    networks:
+      - backend
+
+  # -----------------------
+  # User Database
+  # -----------------------
+  userdb:
+    container_name: user-db
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=P@ssw0r1218
+      - MSSQL_PID=Express
+    ports:
+      - "1434:1433"
+    networks:
+      - backend
+    volumes:
+      - userdb_data:/var/opt/mssql
+
+  # -----------------------
+  # User Web API
+  # -----------------------
+  userwebapi:
+    container_name: user-api
+    build:
+      context: .
+      dockerfile: UserWebApi/Dockerfile
+    environment:
+      - DB_HOST=userdb
+      - DB_NAME=dms_user
+      - DB_SA_PASSWORD=P@ssw0r1218
+      - ASPNETCORE_URLS=http://+:80
+      - ASPNETCORE_ENVIRONMENT=Development
+    depends_on:
+      - userdb
+    ports:
+      - "5002:80"
+    networks:
+      - backend
+
+  # -----------------------
+  # Authentication API
+  # -----------------------
+  authenticationwebapi:
+    container_name: authentication-api
+    build:
+      context: .
+      dockerfile: AuthenticationWebApi/Dockerfile
+    environment:
+      - ASPNETCORE_URLS=http://+:80
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "5003:80"
+    networks:
+      - backend
+
+  # -----------------------
+  # API Gateway (Ocelot)
+  # -----------------------
+  apigateway:
+    container_name: api-gateway
+    build:
+      context: .
+      dockerfile: ApiGateway/Dockerfile
+    ports:
+      - "8001:80"
+    environment:
+      - ASPNETCORE_URLS=http://+:80
+    depends_on:
+      - productwebapi
+      - userwebapi
+    networks:
+      - backend
+
+ # -----------------------
+  # Bokun Adapter
+  # -----------------------
+
+  bokunadapter:
+    container_name: bokun-adapter
+    image: ${DOCKER_REGISTRY-}bokunadapter
+    build:
+      context: .
+      dockerfile: BokunAdapter/Dockerfile
+    environment:
+      - ASPNETCORE_URLS=http://+:80
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "5004:80"
+    networks:
+      - backend
+

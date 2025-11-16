@@ -1,0 +1,6 @@
+@BokunAdapter_HostAddress = http://localhost:5261
+
+GET {{BokunAdapter_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

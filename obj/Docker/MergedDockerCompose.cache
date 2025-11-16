@@ -1,0 +1,171 @@
+name: dockercompose11386929384360697240
+services:
+  apigateway:
+    build:
+      context: C:\Users\int.chathura\source\repos\Assignment
+      dockerfile: ApiGateway/Dockerfile
+    container_name: api-gateway
+    depends_on:
+      productwebapi:
+        condition: service_started
+        required: true
+      userwebapi:
+        condition: service_started
+        required: true
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_HTTP_PORTS: "8080"
+      ASPNETCORE_URLS: http://+:80
+    networks:
+      backend: null
+    ports:
+      - mode: ingress
+        target: 80
+        published: "8001"
+        protocol: tcp
+      - mode: ingress
+        target: 8080
+        protocol: tcp
+  authenticationwebapi:
+    build:
+      context: C:\Users\int.chathura\source\repos\Assignment
+      dockerfile: AuthenticationWebApi/Dockerfile
+    container_name: authentication-api
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_HTTP_PORTS: "8080"
+      ASPNETCORE_URLS: http://+:80
+    networks:
+      backend: null
+    ports:
+      - mode: ingress
+        target: 80
+        published: "5003"
+        protocol: tcp
+      - mode: ingress
+        target: 8080
+        protocol: tcp
+  productdb:
+    container_name: product-db
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_PID: Express
+      SA_PASSWORD: P@ssw0r1218
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    networks:
+      backend: null
+    ports:
+      - mode: ingress
+        target: 1433
+        published: "1433"
+        protocol: tcp
+    volumes:
+      - type: volume
+        source: productdb_data
+        target: /var/opt/mssql
+        volume: {}
+  productwebapi:
+    build:
+      context: C:\Users\int.chathura\source\repos\Assignment
+      dockerfile: ProductWebAPI/Dockerfile
+    container_name: product-api
+    depends_on:
+      productdb:
+        condition: service_started
+        required: true
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_HTTP_PORTS: "8080"
+      ASPNETCORE_URLS: http://+:80
+      DB_HOST: productdb
+      DB_NAME: dms_product
+      DB_SA_PASSWORD: P@ssw0r1218
+    networks:
+      backend: null
+    ports:
+      - mode: ingress
+        target: 80
+        published: "5001"
+        protocol: tcp
+      - mode: ingress
+        target: 8080
+        protocol: tcp
+    volumes:
+      - type: bind
+        source: C:\Users\int.chathura\AppData\Roaming/Microsoft/UserSecrets
+        target: /home/app/.microsoft/usersecrets
+        read_only: true
+        bind:
+          create_host_path: true
+      - type: bind
+        source: C:\Users\int.chathura\AppData\Roaming/Microsoft/UserSecrets
+        target: /root/.microsoft/usersecrets
+        read_only: true
+        bind:
+          create_host_path: true
+  userdb:
+    container_name: user-db
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_PID: Express
+      SA_PASSWORD: P@ssw0r1218
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    networks:
+      backend: null
+    ports:
+      - mode: ingress
+        target: 1433
+        published: "1434"
+        protocol: tcp
+    volumes:
+      - type: volume
+        source: userdb_data
+        target: /var/opt/mssql
+        volume: {}
+  userwebapi:
+    build:
+      context: C:\Users\int.chathura\source\repos\Assignment
+      dockerfile: UserWebApi/Dockerfile
+    container_name: user-api
+    depends_on:
+      userdb:
+        condition: service_started
+        required: true
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_HTTP_PORTS: "8080"
+      ASPNETCORE_URLS: http://+:80
+      DB_HOST: userdb
+      DB_NAME: dms_user
+      DB_SA_PASSWORD: P@ssw0r1218
+    networks:
+      backend: null
+    ports:
+      - mode: ingress
+        target: 80
+        published: "5002"
+        protocol: tcp
+      - mode: ingress
+        target: 8080
+        protocol: tcp
+    volumes:
+      - type: bind
+        source: C:\Users\int.chathura\AppData\Roaming/Microsoft/UserSecrets
+        target: /home/app/.microsoft/usersecrets
+        read_only: true
+        bind:
+          create_host_path: true
+      - type: bind
+        source: C:\Users\int.chathura\AppData\Roaming/Microsoft/UserSecrets
+        target: /root/.microsoft/usersecrets
+        read_only: true
+        bind:
+          create_host_path: true
+networks:
+  backend:
+    name: dockercompose11386929384360697240_backend
+volumes:
+  productdb_data:
+    name: dockercompose11386929384360697240_productdb_data
+  userdb_data:
+    name: dockercompose11386929384360697240_userdb_data
