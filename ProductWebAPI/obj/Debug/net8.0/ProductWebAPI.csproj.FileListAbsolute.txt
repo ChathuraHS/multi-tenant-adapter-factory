@@ -176,3 +176,4 @@ C:\Users\int.chathura\source\repos\Assignment\ProductWebAPI\bin\Debug\net8.0\Bok
 C:\Users\int.chathura\source\repos\Assignment\ProductWebAPI\bin\Debug\net8.0\BokunAdapter.exe
 C:\Users\int.chathura\source\repos\Assignment\ProductWebAPI\bin\Debug\net8.0\BokunAdapter.dll
 C:\Users\int.chathura\source\repos\Assignment\ProductWebAPI\bin\Debug\net8.0\BokunAdapter.pdb
+C:\Users\int.chathura\source\repos\Assignment\ProductWebAPI\obj\Debug\net8.0\ProductWebAPI.sourcelink.json

@@ -1,3 +1,7 @@
+using CartWebAPI;
+using CartWebAPI.Service;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -6,6 +10,17 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+var dbHost = Environment.GetEnvironmentVariable("DB_HOST");
+var dbName = Environment.GetEnvironmentVariable("DB_NAME");
+var dbPassword = Environment.GetEnvironmentVariable("DB_SA_PASSWORD");
+
+var connectionString = $"Server={dbHost};Database={dbName};User ID=sa;Password={dbPassword};TrustServerCertificate=True;";
+
+
+builder.Services.AddDbContext<CartDbContext>(opt => opt.UseSqlServer(connectionString));
+builder.Services.AddScoped<ICartService, CartService>();
+
 
 var app = builder.Build();
 

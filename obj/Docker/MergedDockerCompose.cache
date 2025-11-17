@@ -1,11 +1,40 @@
 name: dockercompose11386929384360697240
 services:
+  adapterfactoryservice:
+    build:
+      context: C:\Users\int.chathura\source\repos\Assignment
+      dockerfile: AdapterFactoryService/Dockerfile
+    container_name: adapter-factory
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_HTTP_PORTS: "8080"
+      ASPNETCORE_URLS: http://+:80
+    image: adapterfactoryservice
+    networks:
+      backend: null
+    ports:
+      - mode: ingress
+        target: 80
+        published: "5005"
+        protocol: tcp
+      - mode: ingress
+        target: 8080
+        protocol: tcp
   apigateway:
     build:
       context: C:\Users\int.chathura\source\repos\Assignment
       dockerfile: ApiGateway/Dockerfile
     container_name: api-gateway
     depends_on:
+      adapterfactoryservice:
+        condition: service_started
+        required: true
+      authenticationwebapi:
+        condition: service_started
+        required: true
+      bokunadapter:
+        condition: service_started
+        required: true
       productwebapi:
         condition: service_started
         required: true
@@ -41,6 +70,72 @@ services:
       - mode: ingress
         target: 80
         published: "5003"
+        protocol: tcp
+      - mode: ingress
+        target: 8080
+        protocol: tcp
+  bokunadapter:
+    build:
+      context: C:\Users\int.chathura\source\repos\Assignment
+      dockerfile: BokunAdapter/Dockerfile
+    container_name: bokun-adapter
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_HTTP_PORTS: "8080"
+      ASPNETCORE_URLS: http://+:80
+    image: bokunadapter
+    networks:
+      backend: null
+    ports:
+      - mode: ingress
+        target: 80
+        published: "5004"
+        protocol: tcp
+      - mode: ingress
+        target: 8080
+        protocol: tcp
+  cartdb:
+    container_name: cart-db
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_PID: Express
+      SA_PASSWORD: P@ssw0r1218
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    networks:
+      backend: null
+    ports:
+      - mode: ingress
+        target: 1433
+        published: "1435"
+        protocol: tcp
+    volumes:
+      - type: volume
+        source: cartdb_data
+        target: /var/opt/mssql
+        volume: {}
+  cartwebapi:
+    build:
+      context: C:\Users\int.chathura\source\repos\Assignment
+      dockerfile: CartWebAPI/Dockerfile
+    container_name: cart-api
+    depends_on:
+      cartdb:
+        condition: service_started
+        required: true
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_HTTP_PORTS: "8080"
+      ASPNETCORE_URLS: http://+:80
+      DB_HOST: cartdb
+      DB_NAME: dms_cart
+      DB_SA_PASSWORD: P@ssw0r1218
+    image: cartwebapi
+    networks:
+      backend: null
+    ports:
+      - mode: ingress
+        target: 80
+        published: "5006"
         protocol: tcp
       - mode: ingress
         target: 8080
@@ -165,6 +260,8 @@ networks:
   backend:
     name: dockercompose11386929384360697240_backend
 volumes:
+  cartdb_data:
+    name: dockercompose11386929384360697240_cartdb_data
   productdb_data:
     name: dockercompose11386929384360697240_productdb_data
   userdb_data:

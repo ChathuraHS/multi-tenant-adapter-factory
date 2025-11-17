@@ -8,7 +8,9 @@
         "userwebapi": "StartDebugging",
         "apigateway": "StartDebugging",
         "authenticationwebapi": "StartDebugging",
-        "bokunadapter": "StartDebugging"
+        "bokunadapter": "StartDebugging",
+        "adapterfactoryservice": "StartDebugging",
+        "cartwebapi": "StartDebugging"
       }
     }
   }

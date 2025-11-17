@@ -10,3 +10,4 @@ C:\Users\int.chathura\source\repos\Assignment\JwtAuthenticationManager\obj\Debug
 C:\Users\int.chathura\source\repos\Assignment\JwtAuthenticationManager\obj\Debug\net8.0\refint\JwtAuthenticationManager.dll
 C:\Users\int.chathura\source\repos\Assignment\JwtAuthenticationManager\obj\Debug\net8.0\JwtAuthenticationManager.pdb
 C:\Users\int.chathura\source\repos\assignment\JwtAuthenticationManager\obj\Debug\net8.0\ref\JwtAuthenticationManager.dll
+C:\Users\int.chathura\source\repos\Assignment\JwtAuthenticationManager\obj\Debug\net8.0\JwtAuthenticationManager.sourcelink.json

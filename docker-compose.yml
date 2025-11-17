@@ -6,6 +6,7 @@ networks:
 volumes:
   productdb_data:
   userdb_data:
+  cartdb_data:
 
 services:
 
@@ -84,6 +85,45 @@ services:
       - "5002:80"
     networks:
       - backend
+ # -----------------------
+ # Cart Web API
+ # -----------------------
+
+  cartwebapi:
+    container_name: cart-api
+    image: ${DOCKER_REGISTRY-}cartwebapi
+    build:
+      context: .
+      dockerfile: CartWebAPI/Dockerfile
+    environment:
+      - DB_HOST=cartdb
+      - DB_NAME=dms_cart
+      - DB_SA_PASSWORD=P@ssw0r1218
+      - ASPNETCORE_URLS=http://+:80
+      - ASPNETCORE_ENVIRONMENT=Development
+    depends_on:
+      - cartdb
+    ports:
+      - "5006:80"
+    networks:
+      - backend
+
+# -----------------------
+# Cart Database
+# -----------------------
+  cartdb:
+    container_name: cart-db
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=P@ssw0r1218
+      - MSSQL_PID=Express
+    ports:
+      - "1435:1433"
+    networks:
+      - backend
+    volumes:
+      - cartdb_data:/var/opt/mssql
 
   # -----------------------
   # Authentication API
@@ -116,12 +156,15 @@ services:
     depends_on:
       - productwebapi
       - userwebapi
+      - authenticationwebapi
+      - bokunadapter
+      - adapterfactoryservice
     networks:
       - backend
 
  # -----------------------
-  # Bokun Adapter
-  # -----------------------
+ # Bokun Adapter
+ # -----------------------
 
   bokunadapter:
     container_name: bokun-adapter
@@ -134,6 +177,24 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
     ports:
       - "5004:80"
+    networks:
+      - backend
+
+ # -----------------------
+ # Adapter Factory
+ # -----------------------
+
+  adapterfactoryservice:
+    container_name: adapter-factory
+    image: ${DOCKER_REGISTRY-}adapterfactoryservice
+    build:
+      context: .
+      dockerfile: AdapterFactoryService/Dockerfile
+    environment:
+      - ASPNETCORE_URLS=http://+:80
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "5005:80"
     networks:
       - backend
 

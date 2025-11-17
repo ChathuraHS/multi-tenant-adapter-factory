@@ -9,7 +9,9 @@ namespace ProductWebAPI.Services
         Task<int> CreateAsync(ProductRequestDto dto);
         Task<bool> UpdateAsync(int id, ProductRequestDto dto);
         Task<bool> DeleteAsync(int id);
-        Task<int> SyncFromBokunAsync();
+        //Task<int> SyncFromBokunAsync();
+        //Task SyncFromProviderAsync(string provider);
+        Task<int> SyncFromProviderAsync(string provider);
     }
 
 }

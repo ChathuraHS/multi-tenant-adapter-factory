@@ -4,7 +4,6 @@ C:\Users\int.chathura\source\repos\assignment\UserWebApi\obj\Debug\net8.0\UserWe
 C:\Users\int.chathura\source\repos\assignment\UserWebApi\obj\Debug\net8.0\UserWebAPI.AssemblyInfoInputs.cache
 C:\Users\int.chathura\source\repos\assignment\UserWebApi\obj\Debug\net8.0\UserWebAPI.AssemblyInfo.cs
 C:\Users\int.chathura\source\repos\assignment\UserWebApi\obj\Debug\net8.0\UserWebAPI.csproj.CoreCompileInputs.cache
-C:\Users\int.chathura\source\repos\assignment\UserWebApi\obj\Debug\net8.0\UserWebAPI.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\int.chathura\source\repos\assignment\UserWebApi\obj\Debug\net8.0\UserWebAPI.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\int.chathura\source\repos\assignment\UserWebApi\bin\Debug\net8.0\appsettings.Development.json
 C:\Users\int.chathura\source\repos\assignment\UserWebApi\bin\Debug\net8.0\appsettings.json
@@ -175,3 +174,10 @@ C:\Users\int.chathura\source\repos\Assignment\UserWebApi\bin\Debug\net8.0\Micros
 C:\Users\int.chathura\source\repos\Assignment\UserWebApi\bin\Debug\net8.0\JwtAuthenticationManager.dll
 C:\Users\int.chathura\source\repos\Assignment\UserWebApi\bin\Debug\net8.0\JwtAuthenticationManager.pdb
 C:\Users\int.chathura\source\repos\Assignment\UserWebApi\bin\Debug\net8.0\BCrypt.Net-Next.dll
+C:\Users\int.chathura\source\repos\Assignment\UserWebApi\obj\Debug\net8.0\UserWebAPI.sourcelink.json
+C:\Users\int.chathura\source\repos\Assignment\UserWebApi\bin\Debug\net8.0\CartWebAPI.deps.json
+C:\Users\int.chathura\source\repos\Assignment\UserWebApi\bin\Debug\net8.0\CartWebAPI.runtimeconfig.json
+C:\Users\int.chathura\source\repos\Assignment\UserWebApi\bin\Debug\net8.0\CartWebAPI.staticwebassets.endpoints.json
+C:\Users\int.chathura\source\repos\Assignment\UserWebApi\bin\Debug\net8.0\CartWebAPI.exe
+C:\Users\int.chathura\source\repos\Assignment\UserWebApi\bin\Debug\net8.0\CartWebAPI.dll
+C:\Users\int.chathura\source\repos\Assignment\UserWebApi\bin\Debug\net8.0\CartWebAPI.pdb

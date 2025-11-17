@@ -51,12 +51,20 @@ namespace ProductWebAPI.Controllers
             return ok ? Ok(new { message = "Deleted" }) : NotFound();
         }
 
-        [HttpPost("sync/bokun")]
-        public async Task<IActionResult> Sync()
+        //[HttpPost("sync/bokun")]
+        //public async Task<IActionResult> Sync()
+        //{
+        //    var count = await _service.SyncFromBokunAsync();  
+        //    return Ok(new { message = "Synced", count });
+        //}
+
+        [HttpPost("sync/{provider}")]
+        public async Task<IActionResult> Sync(string provider)
         {
-            var count = await _service.SyncFromBokunAsync();
-            return Ok(new { message = "Synced", count });
+            var count = await _service.SyncFromProviderAsync(provider);
+            return Ok(new { message = "Synced", provider, count });
         }
+
     }
 
 }

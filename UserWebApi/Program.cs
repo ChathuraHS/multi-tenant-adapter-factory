@@ -1,6 +1,6 @@
-using UserWebAPI;
 using Microsoft.EntityFrameworkCore;
 using JwtAuthenticationManager;
+using UserWebAPI;
 
 var builder = WebApplication.CreateBuilder(args);
 

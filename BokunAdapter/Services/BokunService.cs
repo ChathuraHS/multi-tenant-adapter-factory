@@ -73,7 +73,7 @@
                     new ProductAttributeDto { Name = "Difficulty", Value = item.difficultyLevel }
                 },
 
-                    Availabilities = new List<ProductAvailabilityDto>() // Bokun needs another endpoint for real availability
+                    Availabilities = new List<ProductAvailabilityDto>() // Need to remove this and implement it real time
                 });
             }
 

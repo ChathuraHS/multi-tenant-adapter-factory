@@ -26,6 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CartWebAPI\CartWebAPI.csproj" />
     <ProjectReference Include="..\JwtAuthenticationManager\JwtAuthenticationManager.csproj" />
   </ItemGroup>
 

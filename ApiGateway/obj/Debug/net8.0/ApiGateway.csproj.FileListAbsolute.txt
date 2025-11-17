@@ -98,3 +98,4 @@ C:\Users\int.chathura\source\repos\Assignment\ApiGateway\bin\Debug\net8.0\runtim
 C:\Users\int.chathura\source\repos\Assignment\ApiGateway\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 C:\Users\int.chathura\source\repos\Assignment\ApiGateway\bin\Debug\net8.0\JwtAuthenticationManager.dll
 C:\Users\int.chathura\source\repos\Assignment\ApiGateway\bin\Debug\net8.0\JwtAuthenticationManager.pdb
+C:\Users\int.chathura\source\repos\Assignment\ApiGateway\obj\Debug\net8.0\ApiGateway.sourcelink.json

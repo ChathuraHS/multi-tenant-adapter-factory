@@ -11,10 +11,22 @@ builder.Services.AddControllers()
     .AddJsonOptions(o => o.JsonSerializerOptions.PropertyNameCaseInsensitive = true);
 
 
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddHttpClient();
+
+//Direct microservice to microservice communication
+//builder.Services.AddHttpClient("AdapterFactory", client =>
+//{
+//    client.BaseAddress = new Uri("http://adapter-factory/");
+//});
+
+//Ocelot gateway
+builder.Services.AddHttpClient("AdapterFactory", c =>
+{
+    c.BaseAddress = new Uri("http://adapter-factory:80/");
+});
+
 
 
 //var dbHost = "local";

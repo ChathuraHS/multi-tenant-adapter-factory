@@ -33,3 +33,4 @@ C:\Users\int.chathura\source\repos\Assignment\BokunAdapter\obj\Debug\net8.0\refi
 C:\Users\int.chathura\source\repos\Assignment\BokunAdapter\obj\Debug\net8.0\BokunAdapter.pdb
 C:\Users\int.chathura\source\repos\Assignment\BokunAdapter\obj\Debug\net8.0\BokunAdapter.genruntimeconfig.cache
 C:\Users\int.chathura\source\repos\Assignment\BokunAdapter\obj\Debug\net8.0\ref\BokunAdapter.dll
+C:\Users\int.chathura\source\repos\Assignment\BokunAdapter\obj\Debug\net8.0\BokunAdapter.sourcelink.json

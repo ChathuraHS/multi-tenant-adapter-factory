@@ -113,13 +113,75 @@ namespace ProductWebAPI.Services
             return true;
         }
 
-        // ---------------- SYNC FROM BOKUN ----------------
-        public async Task<int> SyncFromBokunAsync()
+        //// ---------------- SYNC FROM BOKUN ----------------
+        //public async Task<int> SyncFromBokunAsync()
+        //{
+        //    var http = _clientFactory.CreateClient();
+        //    var products = await http.GetFromJsonAsync<List<ProductSyncDto>>(
+        //        "http://bokun-adapter/api/bokun/products"
+        //    );
+
+        //    if (products == null || products.Count == 0)
+        //        return 0;
+
+        //    int count = 0;
+
+        //    foreach (var p in products)
+        //    {
+        //        var existing = await _db.Products
+        //            .Include(x => x.Attributes)
+        //            .Include(x => x.TourImages)
+        //            .Include(x => x.TourAvailabilities)
+        //            .FirstOrDefaultAsync(x => x.ExternalId == p.ExternalId && x.Provider == "Bokun");
+
+        //        if (existing == null)
+        //        {
+        //            await _db.Products.AddAsync(MapSyncToEntity(p));
+        //        }
+        //        else
+        //        {
+        //            // Same update logic reused from UpdateAsync()
+        //            existing.Name = p.Name;
+        //            existing.Description = p.Description;
+        //            existing.Price = p.Price;
+        //            existing.Currency = p.Currency;
+        //            existing.CategoryId = p.CategoryId;
+        //            existing.UpdatedAt = DateTime.UtcNow;
+
+        //            _db.Attributes.RemoveRange(existing.Attributes);
+        //            existing.Attributes = p.Attributes?
+        //                .Select(a => new ProductAttribute { ProductId = existing.ProductId, Name = a.Name, Value = a.Value })
+        //                .ToList();
+
+        //            _db.ProductImages.RemoveRange(existing.TourImages);
+        //            existing.TourImages = p.Images?
+        //                .Select(i => new ProductImage { ProductId = existing.ProductId, ImageUrl = i })
+        //                .ToList();
+
+        //            _db.ProductAvailabilities.RemoveRange(existing.TourAvailabilities);
+        //            existing.TourAvailabilities = p.Availabilities?
+        //                .Select(a => new ProductAvailability { ProductId = existing.ProductId, Date = a.Date, AvailableUnits = a.AvailableUnits, Price = a.Price })
+        //                .ToList();
+        //        }
+
+        //        count++;
+        //    }
+
+        //    await _db.SaveChangesAsync();
+        //    return count;
+        //}
+        public async Task<int> SyncFromProviderAsync(string provider)
         {
-            var http = _clientFactory.CreateClient();
-            var products = await http.GetFromJsonAsync<List<ProductSyncDto>>(
-                "http://bokun-adapter/api/bokun/products"
-            );
+            // normalize provider name
+            provider = provider.ToLower();
+
+            // Use Adapter Factory instead of direct microservice calls
+            var client = _clientFactory.CreateClient("AdapterFactory");
+
+            // FIX: controller name is "Adapter" so route is api/Adapter/{provider}/products
+            var endpoint = $"api/Adapter/{provider}/products";
+
+            var products = await client.GetFromJsonAsync<List<ProductSyncDto>>(endpoint);
 
             if (products == null || products.Count == 0)
                 return 0;
@@ -132,15 +194,16 @@ namespace ProductWebAPI.Services
                     .Include(x => x.Attributes)
                     .Include(x => x.TourImages)
                     .Include(x => x.TourAvailabilities)
-                    .FirstOrDefaultAsync(x => x.ExternalId == p.ExternalId && x.Provider == "Bokun");
+                    .FirstOrDefaultAsync(x => x.ExternalId == p.ExternalId && x.Provider == provider);
 
                 if (existing == null)
                 {
-                    await _db.Products.AddAsync(MapSyncToEntity(p));
+                    var newProd = MapSyncToEntity(p);
+                    newProd.Provider = provider;
+                    await _db.Products.AddAsync(newProd);
                 }
                 else
                 {
-                    // Same update logic reused from UpdateAsync()
                     existing.Name = p.Name;
                     existing.Description = p.Description;
                     existing.Price = p.Price;
@@ -160,7 +223,13 @@ namespace ProductWebAPI.Services
 
                     _db.ProductAvailabilities.RemoveRange(existing.TourAvailabilities);
                     existing.TourAvailabilities = p.Availabilities?
-                        .Select(a => new ProductAvailability { ProductId = existing.ProductId, Date = a.Date, AvailableUnits = a.AvailableUnits, Price = a.Price })
+                        .Select(a => new ProductAvailability
+                        {
+                            ProductId = existing.ProductId,
+                            Date = a.Date,
+                            AvailableUnits = a.AvailableUnits,
+                            Price = a.Price
+                        })
                         .ToList();
                 }
 
@@ -170,6 +239,7 @@ namespace ProductWebAPI.Services
             await _db.SaveChangesAsync();
             return count;
         }
+
 
         // ---------------- MAPPERS ----------------
 

@@ -44,3 +44,4 @@ C:\Users\int.chathura\source\repos\assignment\AuthenticationWebApi\obj\Debug\net
 C:\Users\int.chathura\source\repos\assignment\AuthenticationWebApi\obj\Debug\net8.0\AuthenticationWebApi.pdb
 C:\Users\int.chathura\source\repos\assignment\AuthenticationWebApi\obj\Debug\net8.0\AuthenticationWebApi.genruntimeconfig.cache
 C:\Users\int.chathura\source\repos\assignment\AuthenticationWebApi\obj\Debug\net8.0\ref\AuthenticationWebApi.dll
+C:\Users\int.chathura\source\repos\Assignment\AuthenticationWebApi\obj\Debug\net8.0\AuthenticationWebApi.sourcelink.json

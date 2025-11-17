@@ -86,3 +86,15 @@ C:\Users\int.chathura\source\repos\Assignment\bin\Debug\BokunAdapter.runtimeconf
 C:\Users\int.chathura\source\repos\Assignment\bin\Debug\BokunAdapter.staticwebassets.endpoints.json
 C:\Users\int.chathura\source\repos\Assignment\bin\Debug\BokunAdapter.exe
 C:\Users\int.chathura\source\repos\Assignment\bin\Debug\BokunAdapter.pdb
+C:\Users\int.chathura\source\repos\Assignment\bin\Debug\AdapterFactoryService.deps.json
+C:\Users\int.chathura\source\repos\Assignment\bin\Debug\AdapterFactoryService.runtimeconfig.json
+C:\Users\int.chathura\source\repos\Assignment\bin\Debug\AdapterFactoryService.staticwebassets.endpoints.json
+C:\Users\int.chathura\source\repos\Assignment\bin\Debug\AdapterFactoryService.exe
+C:\Users\int.chathura\source\repos\Assignment\bin\Debug\AdapterFactoryService.dll
+C:\Users\int.chathura\source\repos\Assignment\bin\Debug\AdapterFactoryService.pdb
+C:\Users\int.chathura\source\repos\Assignment\bin\Debug\CartWebAPI.dll
+C:\Users\int.chathura\source\repos\Assignment\bin\Debug\CartWebAPI.deps.json
+C:\Users\int.chathura\source\repos\Assignment\bin\Debug\CartWebAPI.runtimeconfig.json
+C:\Users\int.chathura\source\repos\Assignment\bin\Debug\CartWebAPI.staticwebassets.endpoints.json
+C:\Users\int.chathura\source\repos\Assignment\bin\Debug\CartWebAPI.exe
+C:\Users\int.chathura\source\repos\Assignment\bin\Debug\CartWebAPI.pdb

@@ -1,8 +1,9 @@
-﻿using UserWebAPI.Dto;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using UserWebAPI.Models;
 using System.Net.Http.Json;
+using UserWebAPI.Dto;
+using UserWebAPI.Models;
 
 namespace UserWebAPI.Controllers
 {
@@ -20,6 +21,7 @@ namespace UserWebAPI.Controllers
         }
 
         //Register an User
+        [AllowAnonymous]
         [HttpPost("register")]
         public async Task<IActionResult> Register(RegisterDto dto)
         {
@@ -40,6 +42,7 @@ namespace UserWebAPI.Controllers
         }
 
         //Login
+        [AllowAnonymous]
         [HttpPost("login")]
         public async Task<IActionResult> Login(LoginDto dto)
         {

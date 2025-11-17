@@ -169,3 +169,4 @@ C:\Users\int.chathura\source\repos\Assignment\CartWebAPI\obj\Debug\net8.0\refint
 C:\Users\int.chathura\source\repos\Assignment\CartWebAPI\obj\Debug\net8.0\CartWebAPI.pdb
 C:\Users\int.chathura\source\repos\Assignment\CartWebAPI\obj\Debug\net8.0\CartWebAPI.genruntimeconfig.cache
 C:\Users\int.chathura\source\repos\Assignment\CartWebAPI\obj\Debug\net8.0\ref\CartWebAPI.dll
+C:\Users\int.chathura\source\repos\Assignment\CartWebAPI\obj\Debug\net8.0\CartWebAPI.sourcelink.json
