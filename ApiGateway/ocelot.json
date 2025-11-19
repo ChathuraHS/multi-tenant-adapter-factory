@@ -256,6 +256,20 @@
             ],
             "DownstreamPathTemplate": "/api/U_Product/sync/{provider}"
         },
+        //AdapterFactory/{provider}/products/{productId}/availability?date={date:yyyy-MM-dd}
+        {
+            "UpstreamPathTemplate": "/api/U_Product/{provider}/{productId}/availability",
+            "UpstreamHttpMethod": [ "GET" ],
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "product-api",
+                    "Port": 80
+                }
+            ],
+            "DownstreamPathTemplate": "/api/U_Product/{provider}/{productId}/availability"
+        },
+
         // ================================
         // CART WEB API
         // ================================
@@ -307,6 +321,43 @@
             ],
             "DownstreamPathTemplate": "/api/Cart/Remove/{cartItemId}/User/{userId}"
         },
+        // ================================
+        // CHECKOUT WEB API
+        // ================================
+
+        {
+            "UpstreamPathTemplate": "/api/Checkout",
+            "UpstreamHttpMethod": [ "GET", "POST" ],
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "checkout-api",
+                    "Port": 80
+                }
+            ],
+            "DownstreamPathTemplate": "/api/Checkout",
+            "AuthenticationOptions": {
+                "AuthenticationProviderKey": "Bearer",
+                "AllowedScopes": []
+            }
+        },
+        {
+            "UpstreamPathTemplate": "/api/Checkout/{orderId}",
+            "UpstreamHttpMethod": [ "GET", "DELETE", "PUT" ],
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "checkout-api",
+                    "Port": 80
+                }
+            ],
+            "DownstreamPathTemplate": "/api/Checkout/{orderId}",
+            "AuthenticationOptions": {
+                "AuthenticationProviderKey": "Bearer",
+                "AllowedScopes": []
+            }
+        },
+
         // Bokun Adapter Web API
         {
             "UpstreamPathTemplate": "/api/Bokun",
@@ -373,6 +424,18 @@
                 "AuthenticationProviderKey": "Bearer",
                 "AllowedScopes": []
             }
+        },
+        {
+            "UpstreamPathTemplate": "/api/AdapterFactory/{provider}/products/{productId}/availability",
+            "UpstreamHttpMethod": [ "GET" ],
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "adapter-factory",
+                    "Port": 80
+                }
+            ],
+            "DownstreamPathTemplate": "/api/AdapterFactory/{provider}/products/{productId}/availability"
         }
 
     ],

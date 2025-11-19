@@ -181,3 +181,4 @@ C:\Users\int.chathura\source\repos\Assignment\UserWebApi\bin\Debug\net8.0\CartWe
 C:\Users\int.chathura\source\repos\Assignment\UserWebApi\bin\Debug\net8.0\CartWebAPI.exe
 C:\Users\int.chathura\source\repos\Assignment\UserWebApi\bin\Debug\net8.0\CartWebAPI.dll
 C:\Users\int.chathura\source\repos\Assignment\UserWebApi\bin\Debug\net8.0\CartWebAPI.pdb
+C:\Users\int.chathura\source\repos\Assignment\UserWebApi\obj\Debug\net8.0\UserWebAPI.MvcApplicationPartsAssemblyInfo.cs

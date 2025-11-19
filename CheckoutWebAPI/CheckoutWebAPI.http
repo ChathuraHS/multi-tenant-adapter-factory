@@ -1,0 +1,6 @@
+@CheckoutWebAPI_HostAddress = http://localhost:5104
+
+GET {{CheckoutWebAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

@@ -1,4 +1,7 @@
-﻿using ProductWebAPI.Dto;
+﻿using Microsoft.AspNetCore.Mvc;
+using ProductWebAPI.Dto;
+using ProductWebAPI.Models;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ProductWebAPI.Services
 {
@@ -9,9 +12,12 @@ namespace ProductWebAPI.Services
         Task<int> CreateAsync(ProductRequestDto dto);
         Task<bool> UpdateAsync(int id, ProductRequestDto dto);
         Task<bool> DeleteAsync(int id);
-        //Task<int> SyncFromBokunAsync();
-        //Task SyncFromProviderAsync(string provider);
         Task<int> SyncFromProviderAsync(string provider);
+
+        Task<BokunAvailabilityDto?> GetAvailabilityFromProviderAsync(
+             string provider,
+             long productId,
+             DateTime date);
     }
 
 }

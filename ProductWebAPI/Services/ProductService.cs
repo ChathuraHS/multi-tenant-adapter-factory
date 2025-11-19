@@ -1,7 +1,7 @@
-﻿using BokunAdapter.Dto;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using ProductWebAPI.Dto;
 using ProductWebAPI.Models;
+using System.Text.Json;
 
 namespace ProductWebAPI.Services
 {
@@ -113,74 +113,20 @@ namespace ProductWebAPI.Services
             return true;
         }
 
-        //// ---------------- SYNC FROM BOKUN ----------------
-        //public async Task<int> SyncFromBokunAsync()
-        //{
-        //    var http = _clientFactory.CreateClient();
-        //    var products = await http.GetFromJsonAsync<List<ProductSyncDto>>(
-        //        "http://bokun-adapter/api/bokun/products"
-        //    );
-
-        //    if (products == null || products.Count == 0)
-        //        return 0;
-
-        //    int count = 0;
-
-        //    foreach (var p in products)
-        //    {
-        //        var existing = await _db.Products
-        //            .Include(x => x.Attributes)
-        //            .Include(x => x.TourImages)
-        //            .Include(x => x.TourAvailabilities)
-        //            .FirstOrDefaultAsync(x => x.ExternalId == p.ExternalId && x.Provider == "Bokun");
-
-        //        if (existing == null)
-        //        {
-        //            await _db.Products.AddAsync(MapSyncToEntity(p));
-        //        }
-        //        else
-        //        {
-        //            // Same update logic reused from UpdateAsync()
-        //            existing.Name = p.Name;
-        //            existing.Description = p.Description;
-        //            existing.Price = p.Price;
-        //            existing.Currency = p.Currency;
-        //            existing.CategoryId = p.CategoryId;
-        //            existing.UpdatedAt = DateTime.UtcNow;
-
-        //            _db.Attributes.RemoveRange(existing.Attributes);
-        //            existing.Attributes = p.Attributes?
-        //                .Select(a => new ProductAttribute { ProductId = existing.ProductId, Name = a.Name, Value = a.Value })
-        //                .ToList();
-
-        //            _db.ProductImages.RemoveRange(existing.TourImages);
-        //            existing.TourImages = p.Images?
-        //                .Select(i => new ProductImage { ProductId = existing.ProductId, ImageUrl = i })
-        //                .ToList();
-
-        //            _db.ProductAvailabilities.RemoveRange(existing.TourAvailabilities);
-        //            existing.TourAvailabilities = p.Availabilities?
-        //                .Select(a => new ProductAvailability { ProductId = existing.ProductId, Date = a.Date, AvailableUnits = a.AvailableUnits, Price = a.Price })
-        //                .ToList();
-        //        }
-
-        //        count++;
-        //    }
-
-        //    await _db.SaveChangesAsync();
-        //    return count;
-        //}
+        // ---------------- SYNC FROM EXTERNAL PROVIDER ----------------
         public async Task<int> SyncFromProviderAsync(string provider)
         {
-            // normalize provider name
             provider = provider.ToLower();
 
-            // Use Adapter Factory instead of direct microservice calls
-            var client = _clientFactory.CreateClient("AdapterFactory");
+            // Creates an HTTP client that is already configured to talk to the Adapter Factory service.
+            var client = _clientFactory.CreateClient("AdapterFactory"); //AdapterFactory = http://adapter-factory:80/
 
-            // FIX: controller name is "Adapter" so route is api/Adapter/{provider}/products
-            var endpoint = $"api/Adapter/{provider}/products";
+            // Builds the URL path that must be called inside the Adapter Factory.
+            var endpoint = $"api/AdapterFactory/{provider}/products";
+            //Final URL example: http://adapter-factory:80/api/Adapter/bokun/products (endpoint)
 
+            //Sends an HTTP GET request to the built URL
+            //Expects the server to return JSON and convert it to a list of ProductSyncDto objects.
             var products = await client.GetFromJsonAsync<List<ProductSyncDto>>(endpoint);
 
             if (products == null || products.Count == 0)
@@ -240,6 +186,45 @@ namespace ProductWebAPI.Services
             return count;
         }
 
+        public async Task<BokunAvailabilityDto?> GetAvailabilityFromProviderAsync(
+    string provider, long productId, DateTime date)
+        {
+            var client = _clientFactory.CreateClient("AdapterFactory");
+            var url = $"api/AdapterFactory/{provider}/products/{productId}/availability?date={date:yyyy-MM-dd}";
+
+            var response = await client.GetAsync(url);
+            if (!response.IsSuccessStatusCode) return null;
+
+            var json = await response.Content.ReadAsStringAsync();
+            if (string.IsNullOrWhiteSpace(json) || json == "null" || json == "[]" || json == "{}") return null;
+
+            var options = new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            };
+
+            try
+            {
+                // Adapter might return array or single object
+                if (json.TrimStart().StartsWith("["))
+                {
+                    var list = JsonSerializer.Deserialize<List<BokunAvailabilityDto>>(json, options);
+                    return list?.FirstOrDefault();
+                }
+                else
+                {
+                    return JsonSerializer.Deserialize<BokunAvailabilityDto>(json, options);
+                }
+            }
+            catch (JsonException)
+            {
+                return null;
+            }
+        }
+
+
+
+
 
         // ---------------- MAPPERS ----------------
 
@@ -295,6 +280,8 @@ namespace ProductWebAPI.Services
                 }).ToList()
             };
         }
+
+
 
         private Product MapSyncToEntity(ProductSyncDto p)
         {

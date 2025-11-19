@@ -10,7 +10,8 @@
         "authenticationwebapi": "StartDebugging",
         "bokunadapter": "StartDebugging",
         "adapterfactoryservice": "StartDebugging",
-        "cartwebapi": "StartDebugging"
+        "cartwebapi": "StartDebugging",
+        "checkoutwebapi": "StartDebugging"
       }
     }
   }

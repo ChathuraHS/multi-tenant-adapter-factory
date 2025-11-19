@@ -29,5 +29,3 @@ namespace CartWebAPI.Models
     }
 
 }
-
-public enum ReservationStatus { Pending, Reserved, Confirmed, Released }

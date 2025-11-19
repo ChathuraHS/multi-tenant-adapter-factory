@@ -7,6 +7,7 @@ volumes:
   productdb_data:
   userdb_data:
   cartdb_data:
+  checkoutdb_data:
 
 services:
 
@@ -124,6 +125,46 @@ services:
       - backend
     volumes:
       - cartdb_data:/var/opt/mssql
+
+ # -----------------------
+ # Checkout Web API
+ # -----------------------
+
+  checkoutwebapi:
+    container_name: checkout-api
+    image: ${DOCKER_REGISTRY-}checkoutwebapi
+    build:
+      context: .
+      dockerfile: CheckoutWebAPI/Dockerfile
+    environment:
+      - DB_HOST=checkoutdb
+      - DB_NAME=dms_checkout
+      - DB_SA_PASSWORD=P@ssw0r1218
+      - ASPNETCORE_URLS=http://+:80
+      - ASPNETCORE_ENVIRONMENT=Development
+    depends_on:
+      - checkoutdb
+    ports:
+      - "5007:80"
+    networks:
+      - backend
+
+# -----------------------
+# Checkout Database
+# -----------------------
+  checkoutdb:
+    container_name: checkout-db
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=P@ssw0r1218
+      - MSSQL_PID=Express
+    ports:
+      - "1436:1433"
+    networks:
+      - backend
+    volumes:
+      - checkoutdb_data:/var/opt/mssql
 
   # -----------------------
   # Authentication API

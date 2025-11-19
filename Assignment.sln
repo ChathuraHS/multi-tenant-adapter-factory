@@ -32,6 +32,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdapterFactoryService", "AdapterFactoryService\AdapterFactoryService.csproj", "{C3F67F86-4537-4E14-9C3B-011DC9248D0C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CheckoutWebAPI", "CheckoutWebAPI\CheckoutWebAPI.csproj", "{06C8FB79-6ED5-46CE-86DA-36C233E2D381}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -74,6 +76,10 @@ Global
 		{C3F67F86-4537-4E14-9C3B-011DC9248D0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C3F67F86-4537-4E14-9C3B-011DC9248D0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C3F67F86-4537-4E14-9C3B-011DC9248D0C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{06C8FB79-6ED5-46CE-86DA-36C233E2D381}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{06C8FB79-6ED5-46CE-86DA-36C233E2D381}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{06C8FB79-6ED5-46CE-86DA-36C233E2D381}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{06C8FB79-6ED5-46CE-86DA-36C233E2D381}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -84,6 +90,7 @@ Global
 		{AE9453E4-DF31-4622-8EDE-D01C1D7D8657} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{BE911AF3-466E-4EF8-9BD3-3539C790E885} = {6CA79F36-36DC-4B87-98B8-234C9C49B24F}
 		{80E7CABC-53F1-4079-ACAE-D83C70024283} = {CAF49404-9E50-48B8-BAD2-C9DBD3407668}
+		{06C8FB79-6ED5-46CE-86DA-36C233E2D381} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3024F5D6-5F71-4517-9831-E4E5D1BA1642}

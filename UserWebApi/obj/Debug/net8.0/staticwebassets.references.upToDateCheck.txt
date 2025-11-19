@@ -4,3 +4,8 @@ C:\Users\int.chathura\source\repos\Assignment\CartWebAPI\obj\Debug\net8.0\static
 C:\Users\int.chathura\source\repos\Assignment\CartWebAPI\obj\Debug\net8.0\staticwebassets.build.json
 C:\Users\int.chathura\source\repos\Assignment\CartWebAPI\obj\Debug\net8.0\staticwebassets.build.json
 C:\Users\int.chathura\source\repos\Assignment\CartWebAPI\obj\Debug\net8.0\staticwebassets.build.json
+C:\Users\int.chathura\source\repos\Assignment\CartWebAPI\obj\Debug\net8.0\staticwebassets.build.json
+C:\Users\int.chathura\source\repos\Assignment\CartWebAPI\obj\Debug\net8.0\staticwebassets.build.json
+C:\Users\int.chathura\source\repos\Assignment\CartWebAPI\obj\Debug\net8.0\staticwebassets.build.json
+C:\Users\int.chathura\source\repos\Assignment\CartWebAPI\obj\Debug\net8.0\staticwebassets.build.json
+C:\Users\int.chathura\source\repos\Assignment\CartWebAPI\obj\Debug\net8.0\staticwebassets.build.json

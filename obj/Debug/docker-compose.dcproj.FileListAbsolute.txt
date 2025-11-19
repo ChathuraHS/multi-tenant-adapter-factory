@@ -98,3 +98,9 @@ C:\Users\int.chathura\source\repos\Assignment\bin\Debug\CartWebAPI.runtimeconfig
 C:\Users\int.chathura\source\repos\Assignment\bin\Debug\CartWebAPI.staticwebassets.endpoints.json
 C:\Users\int.chathura\source\repos\Assignment\bin\Debug\CartWebAPI.exe
 C:\Users\int.chathura\source\repos\Assignment\bin\Debug\CartWebAPI.pdb
+C:\Users\int.chathura\source\repos\Assignment\bin\Debug\CheckoutWebAPI.deps.json
+C:\Users\int.chathura\source\repos\Assignment\bin\Debug\CheckoutWebAPI.runtimeconfig.json
+C:\Users\int.chathura\source\repos\Assignment\bin\Debug\CheckoutWebAPI.staticwebassets.endpoints.json
+C:\Users\int.chathura\source\repos\Assignment\bin\Debug\CheckoutWebAPI.exe
+C:\Users\int.chathura\source\repos\Assignment\bin\Debug\CheckoutWebAPI.dll
+C:\Users\int.chathura\source\repos\Assignment\bin\Debug\CheckoutWebAPI.pdb

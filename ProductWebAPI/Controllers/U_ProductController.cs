@@ -1,10 +1,10 @@
-﻿using BokunAdapter.Dto;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ProductWebAPI.Dto;
 using ProductWebAPI.Models;
 using ProductWebAPI.Services;
 using System.Net.Http;
+using System.Text.Json;
 
 namespace ProductWebAPI.Controllers
 {
@@ -13,10 +13,12 @@ namespace ProductWebAPI.Controllers
     public class U_ProductController : ControllerBase
     {
         private readonly IProductService _service;
+        private readonly IHttpClientFactory _clientFactory;
 
-        public U_ProductController(IProductService service)
+        public U_ProductController(IProductService service, IHttpClientFactory clientFactory)
         {
             _service = service;
+            _clientFactory = clientFactory;
         }
 
         [HttpGet]
@@ -51,19 +53,41 @@ namespace ProductWebAPI.Controllers
             return ok ? Ok(new { message = "Deleted" }) : NotFound();
         }
 
-        //[HttpPost("sync/bokun")]
-        //public async Task<IActionResult> Sync()
-        //{
-        //    var count = await _service.SyncFromBokunAsync();  
-        //    return Ok(new { message = "Synced", count });
-        //}
-
         [HttpPost("sync/{provider}")]
         public async Task<IActionResult> Sync(string provider)
         {
             var count = await _service.SyncFromProviderAsync(provider);
             return Ok(new { message = "Synced", provider, count });
         }
+
+        [HttpGet("{provider}/{productId}/availability")]
+        public async Task<IActionResult> GetAvailability(
+            string provider,
+            long productId,
+            [FromQuery] DateTime date)
+                {
+                    var client = _clientFactory.CreateClient("AdapterFactory");
+
+                    var url = $"/api/AdapterFactory/{provider}/products/{productId}/availability?date={date:yyyy-MM-dd}";
+
+                    var res = await client.GetAsync(url);
+
+                    if (!res.IsSuccessStatusCode)
+                        return NotFound("No availability for selected date");
+
+                    var json = await res.Content.ReadAsStringAsync();
+
+                    if (string.IsNullOrWhiteSpace(json))
+                        return NotFound("No availability for selected date");
+
+                    var trimmed = json.Trim();
+                    if (trimmed == "null" || trimmed == "[]" || trimmed == "{}")
+                        return NotFound("No availability for selected date");
+
+                    // Forward original JSON unchanged so caller sees the exact BokunAdapter payload
+                    return Content(json, "application/json");
+                }
+
 
     }
 
